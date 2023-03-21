@@ -3,9 +3,7 @@ import requests
 import json
 from mee6_py_api import API
 import os
-
-# Replace "ID" with your server ID
-mee6API = API("ID")
+mee6API = API("server id")
 
 intents = discord.Intents.default()
 intents.members = True
@@ -19,9 +17,9 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
-    # Check if the message is a command and starts with !rank
+
     if message.content.startswith('!rank'):
-        # Extract the ID from the command arguments
+
         args = message.content.split()
         if len(args) != 2:
             await message.channel.send('Invalid arguments. Usage: !rank <id>')
@@ -33,11 +31,13 @@ async def on_message(message):
         level = details['level']
         xp = details['xp']
         message_count = details['message_count']
+        username = details['username']
+        discrimator = details['discriminator']
 
         print(details)
 
-        await message.channel.send(f'Level: {level}, XP: {xp}, Message Count: {message_count}')
+        await message.channel.send(f'Username: {username}#{discrimator}, Tag: <@{user_id}>, Level: {level}, XP: {xp}, Message Count: {message_count}')
 
-# Replace bot_token with your own Discord bot token
-token = "bot_token"
+# Replace bot token with your own Discord bot token
+token = "bot token"
 client.run(token)
